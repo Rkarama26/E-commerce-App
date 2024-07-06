@@ -10,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 
@@ -30,13 +31,13 @@ public class Product {
 	private int discountedPrice;
 
 	@Column(name = "discount_percent")
-	private int disountedPercent;
+	private int disountedPersent;
 
 	@Column(name = "quantity")
 	private int quantity;
 
 	@Column(name = "product_type")
-	private String productType;
+	private List<String> productType;
 
 	private String specification;
 
@@ -50,14 +51,33 @@ public class Product {
 
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Review> reviews = new ArrayList<>();
-	
-	@Column(name="num_ratings")
+
+	@Column(name = "num_ratings")
 	private int numRatings;
-	
+
 	@ManyToOne()
-	@JoinColumn(name="category_id")
+	@JoinColumn(name = "category_id")
 	private Category category;
-	
+
+	@Lob
+	private byte[] datasheet;
+
+	public int getDisountedPersent() {
+		return disountedPersent;
+	}
+
+	public void setDisountedPersent(int disountedPersent) {
+		this.disountedPersent = disountedPersent;
+	}
+
+	public byte[] getDatasheet() {
+		return datasheet;
+	}
+
+	public void setDatasheet(byte[] datasheet) {
+		this.datasheet = datasheet;
+	}
+
 	private LocalDateTime createdAt;
 
 	public Long getId() {
@@ -101,11 +121,11 @@ public class Product {
 	}
 
 	public int getDisountedPercent() {
-		return disountedPercent;
+		return disountedPersent;
 	}
 
 	public void setDisountedPercent(int disountedPercent) {
-		this.disountedPercent = disountedPercent;
+		this.disountedPersent = disountedPercent;
 	}
 
 	public int getQuantity() {
@@ -116,13 +136,7 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	public String getProductType() {
-		return productType;
-	}
-
-	public void setProductType(String productType) {
-		this.productType = productType;
-	}
+	
 
 	public String getSpecification() {
 		return specification;
@@ -184,20 +198,17 @@ public class Product {
 		return createdAt;
 	}
 
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	public Product(Long id, String title, String description, int price, int discountedPrice, int disountedPercent,
-			int quantity, String productType, String specification, String features, String imageUrl,
-			List<Rating> rating, List<Review> reviews, int numRatings, Category category, LocalDateTime createdAt) {
+	public Product(Long id, String title, String description, int price, int discountedPrice, int disountedPersent,
+			int quantity, List<String> productType, String specification, String features, String imageUrl,
+			List<Rating> rating, List<Review> reviews, int numRatings, Category category, byte[] datasheet,
+			LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.title = title;
 		this.description = description;
 		this.price = price;
 		this.discountedPrice = discountedPrice;
-		this.disountedPercent = disountedPercent;
+		this.disountedPersent = disountedPersent;
 		this.quantity = quantity;
 		this.productType = productType;
 		this.specification = specification;
@@ -207,13 +218,26 @@ public class Product {
 		this.reviews = reviews;
 		this.numRatings = numRatings;
 		this.category = category;
+		this.datasheet = datasheet;
 		this.createdAt = createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+	
+
+	public List<String> getProductType() {
+		return productType;
+	}
+
+	public void setProductType(List<String> productType) {
+		this.productType = productType;
 	}
 
 	public Product() {
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
+
 }
