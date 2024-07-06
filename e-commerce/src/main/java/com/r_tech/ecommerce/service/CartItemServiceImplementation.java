@@ -51,7 +51,7 @@ public class CartItemServiceImplementation implements CartItemService {
 	}
 
 	@Override
-	public CartItem isCardItemExist(Cart cart, Product product, String specification, Long userId) {
+	public CartItem isCardItemExist(Cart cart, Product product, Long userId) {
 
 		CartItem cartItem = cartItemRepository.isCartItemExist(cart, product, userId);
 		

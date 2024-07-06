@@ -12,7 +12,7 @@ public interface CartItemService {
 	
 	public CartItem updateCartItem(Long userId , Long id , CartItem cartItem) throws CartItemException, UserException;
 	
-	public CartItem isCardItemExist(Cart cart, Product product, String specification, Long userId);
+	public CartItem isCardItemExist(Cart cart, Product product, Long userId);
 	
 	public void removeCartItem(Long UserId, Long cartItemId)throws CartItemException, UserException;
 	
