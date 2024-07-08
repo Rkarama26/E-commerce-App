@@ -1,6 +1,8 @@
 package com.r_tech.ecommerce.model;
 
 
+import java.time.LocalDateTime;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -29,6 +31,16 @@ public class Rating {
 	
 	@Column(name="rating")
 	private double rating;
+	
+	private LocalDateTime createdAt; 
+
+	public LocalDateTime getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
 
 	public Long getId() {
 		return id;
@@ -62,16 +74,19 @@ public class Rating {
 		this.rating = rating;
 	}
 
-	public Rating(Long id, User user, Product product, double rating) {
+
+
+	public Rating(Long id, User user, Product product, double rating, LocalDateTime createdAt) {
 		super();
 		this.id = id;
 		this.user = user;
 		this.product = product;
 		this.rating = rating;
+		this.createdAt = createdAt;
 	}
 
 	public Rating() {
-		// TODO Auto-generated constructor stub
+		
 	}
 	
 	
