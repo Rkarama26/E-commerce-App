@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.r_tech.ecommerce.DAO.CartRepository;
+import com.r_tech.ecommerce.DAO.OrderRepository;
 import com.r_tech.ecommerce.exception.OrderException;
 import com.r_tech.ecommerce.model.Address;
 import com.r_tech.ecommerce.model.Order;
@@ -20,6 +21,8 @@ public class OrderServiceImplementation implements OrderService {
 	private CartItemService cartitemService;
 	@Autowired
 	private ProductService productService;  
+	
+	private OrderRepository orderRepository;
 
 	@Override
 	public Order createOrder(User user, Address shippingAddress) {
@@ -70,9 +73,8 @@ public class OrderServiceImplementation implements OrderService {
 	}
 
 	@Override
-	public List<Order> getAllOrder(Long orderId) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Order> getAllOrder() {
+		return orderRepository.findAllByOrderByCreatedAtDesc();
 	}
 
 	@Override

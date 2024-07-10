@@ -53,6 +53,8 @@ public class Order {
 	
 	private Integer totalItem;
 	
+	private LocalDateTime createdAt;
+	
 	
 	public Order() {
 		super();
@@ -77,7 +79,7 @@ public class Order {
 		this.discount = discount;
 		this.orderStatus = orderStatus;
 		this.totalItem = totalItem;
-		this.createAt = createAt;
+		this.createdAt = createAt;
 	}
 
 	public Long getId() {
@@ -185,12 +187,12 @@ public class Order {
 	}
 
 	public LocalDateTime getCreateAt() {
-		return createAt;
+		return createdAt;
 	}
 
 	public void setCreateAt(LocalDateTime createAt) {
-		this.createAt = createAt;
+		this.createdAt = createAt;
 	}
 
-	private LocalDateTime createAt;
+	
 }

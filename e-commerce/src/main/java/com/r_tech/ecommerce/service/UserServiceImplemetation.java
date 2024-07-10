@@ -1,5 +1,6 @@
 package com.r_tech.ecommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -42,6 +43,12 @@ public class UserServiceImplemetation implements UserService {
 			throw new UserException("user not found with: "+ email);
 		}
 		return null;
+	}
+	
+	@Override
+	public List<User> findAllUsers() {
+		// TODO Auto-generated method stub
+		return userRepository.findAllByOrderByCreatedAtDesc();
 	}
 
 }

@@ -11,6 +11,6 @@ import com.r_tech.ecommerce.model.Review;
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
 
-	@Query("SELECT r FROM Review WHERE r.product.id = :productId")
+	@Query("SELECT r FROM Review r WHERE r.product.id = :productId")
 	public List<Review> getAllProductsReview(@Param("productId")Long productId);
 }

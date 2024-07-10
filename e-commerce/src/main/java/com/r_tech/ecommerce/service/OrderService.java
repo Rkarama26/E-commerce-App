@@ -27,7 +27,7 @@ public interface OrderService {
 	// user, admin
 	public Order cancelOrder(Long orderId) throws OrderException;
 	//admin
-	public List<Order> getAllOrder(Long orderId);
+	public List<Order> getAllOrder();
 	//admin
 	public void deleteOrder(Long orderId) throws OrderException;
 	

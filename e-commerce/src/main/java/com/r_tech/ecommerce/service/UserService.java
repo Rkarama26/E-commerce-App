@@ -1,5 +1,7 @@
 package com.r_tech.ecommerce.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.r_tech.ecommerce.exception.UserException;
@@ -11,5 +13,7 @@ public interface UserService {
 	public User findUserById(Long userId) throws UserException;
 	
 	public User findUserProfileByJwt(String jwt)throws UserException;
+
+	public List<User> findAllUsers();
 	
 }

@@ -180,4 +180,10 @@ public class ProductServiceImplementation implements ProductService {
 		return filterProducts;
 	}
 
+	@Override
+	public List<Product> findProducts() {
+		
+		return productRepository.findAll();
+	}
+
 }

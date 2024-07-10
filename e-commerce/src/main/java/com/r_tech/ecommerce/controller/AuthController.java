@@ -34,6 +34,8 @@ public class AuthController {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private CustomUserServiceImplemetation customUserService;
+	
+	
 
 	@PostMapping("/signup")
 	public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws UserException {
@@ -46,7 +48,7 @@ public class AuthController {
 		User isEmailExists = userRepository.findByEmail(email);
 
 		if (isEmailExists != null) {
-			throw new UserException("Email is Already User With Another Account");
+			throw new UserException("Email is Already Used With Another Account");
 		}
 
 		User createdUser = new User();
@@ -66,7 +68,7 @@ public class AuthController {
 
 		AuthResponse authresponse = new AuthResponse();
 
-		authresponse.setMessage("signUp");
+		authresponse.setMessage("signUp success");
 		authresponse.setJwt(token);
 
 		return new ResponseEntity<AuthResponse>(authresponse, HttpStatus.CREATED);
@@ -87,7 +89,7 @@ public class AuthController {
 
 		AuthResponse authresponse = new AuthResponse();
 
-		authresponse.setMessage("signin");
+		authresponse.setMessage("signin success");
 		authresponse.setJwt(token);
 
 		return new ResponseEntity<AuthResponse>(authresponse, HttpStatus.CREATED);
