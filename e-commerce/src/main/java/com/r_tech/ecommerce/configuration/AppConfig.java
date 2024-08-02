@@ -6,6 +6,7 @@ import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -19,6 +20,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
+@EnableWebSecurity
 public class AppConfig {
 	
 	@Bean
@@ -27,7 +29,13 @@ public class AppConfig {
         http.
 
                 sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(auth -> auth.requestMatchers("/api/**").authenticated().anyRequest().permitAll())
+                
+                .authorizeHttpRequests(auth -> 
+                auth.requestMatchers("/api/**")
+                    .authenticated()
+                    .anyRequest()
+                    .permitAll())
+                
                 .addFilterBefore( new JwtValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(new CorsConfigurationSource() {
@@ -42,12 +50,13 @@ public class AppConfig {
                         //Allowing origin from where this backend can be accessed
                         config.setAllowedHeaders(Arrays.asList(
 
+                        		
                                 "http://localhost:3000"
                         ));
                         //Allowing all type of methods
                         config.setAllowedMethods(Collections.singletonList("*"));
                         config.setAllowCredentials(true);
-                        config.setAllowedHeaders(Collections.singletonList("*"));
+                        config.setAllowedHeaders(Collections.singletonList("Authorization"));
                         config.setExposedHeaders(Arrays.asList("Authorization"));
                         config.setMaxAge(3600l);
                         return config;
@@ -64,7 +73,6 @@ public class AppConfig {
         	{
         		return new BCryptPasswordEncoder();
         	}
-	
 	
 	}
 

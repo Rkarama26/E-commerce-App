@@ -32,8 +32,6 @@ public class ProductServiceImplementation implements ProductService {
 	private CategoryRepository categoryRepository;
 	
 	
-	
-	
 
 	//API - Create Product 
 	@Override

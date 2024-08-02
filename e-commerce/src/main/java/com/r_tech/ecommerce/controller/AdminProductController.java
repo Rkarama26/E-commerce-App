@@ -21,13 +21,13 @@ import com.r_tech.ecommerce.response.ApiResponse;
 import com.r_tech.ecommerce.service.ProductService;
 
 @RestController
-@RequestMapping("api/admin/products")
+@RequestMapping("/api/admin/products")
 public class AdminProductController {
 
 	@Autowired
 	private ProductService productService;
 
-	@PostMapping("/")
+	@PostMapping("/create")
 	public ResponseEntity<Product> createProduct(@RequestBody CreateProductRequest req) throws ProductException {
 
 		Product createdProduct = productService.createProduct(req);

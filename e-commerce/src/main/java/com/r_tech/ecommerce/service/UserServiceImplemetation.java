@@ -42,7 +42,7 @@ public class UserServiceImplemetation implements UserService {
 		if(user == null) {
 			throw new UserException("user not found with: "+ email);
 		}
-		return null;
+		return user;
 	}
 	
 	@Override
