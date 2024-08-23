@@ -24,16 +24,13 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Autowired
 	private ProductRepository productRepository;
-	
-	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private CategoryRepository categoryRepository;
-	
+
 	
 
-	//API - Create Product 
+	@Autowired
+	private CategoryRepository categoryRepository;
+
+	// API - Create Product
 	@Override
 	public Product createProduct(CreateProductRequest req) {
 
@@ -76,11 +73,10 @@ public class ProductServiceImplementation implements ProductService {
 		product.setFeatures(req.getFeatures());
 		product.setSpecification(req.getSpecification());
 		product.setDiscountedPrice(req.getDiscountedPrice());
-		product.setDisountedPercent(req.getDiscountedPersent());
+		product.setDiscountPercent(req.getDiscountPercent());
 		product.setPrice(req.getPrice());
 		product.setImageUrl(req.getImageUrl());
 		product.setNumRatings(req.getNumRatings());
-		product.setProductType(req.getProductType());
 		product.setQuantity(req.getQuantity());
 		product.setCreatedAt(LocalDateTime.now());
 		product.setDatasheet(req.getDatasheet());
@@ -91,7 +87,7 @@ public class ProductServiceImplementation implements ProductService {
 		return savedProduct;
 	}
 
-	// API - Delete Product 
+	// API - Delete Product
 	@Override
 	public String deleteproduct(Long productId) throws ProductException {
 		Product product = findProductById(productId);
@@ -99,9 +95,8 @@ public class ProductServiceImplementation implements ProductService {
 
 		return "Product deleted Successfully";
 	}
-	
-	
-    // API - Update Product
+
+	// API - Update Product
 	@Override
 	public Product updateProduct(Long productId, Product req) throws ProductException {
 
@@ -113,8 +108,8 @@ public class ProductServiceImplementation implements ProductService {
 
 		return productRepository.save(product);
 	}
-  
-	// API  - Find Product
+
+	// API - Find Product
 	@Override
 	public Product findProductById(Long id) throws ProductException {
 
@@ -126,61 +121,49 @@ public class ProductServiceImplementation implements ProductService {
 		throw new ProductException("Product not found with id-" + id);
 	}
 
-	
 	@Override
-        public List<Product> findProductByCategory(String category) {
-		
-		System.out.println("category --- "+category);
-		
+	public List<Product> findProductByCategory(String category) {
+
+		System.out.println("category --- " + category);
+
 		List<Product> products = productRepository.findByCategory(category);
-		
+
 		return products;
 	}
 
 	@Override
-	public Page<Product> getAllProduct(String category, List<String> productType, Integer minPrice, Integer maxPrice,
-			Integer minDiscount, String sort, String stock, Integer pageNumber, Integer pageSize) {
+	public Page<Product> getAllProduct(String category, Integer minPrice, Integer maxPrice,
+	        Integer minDiscount, String sort, String stock, Integer pageNumber, Integer pageSize) {
 
-		
-		
-		
-		//using pagination it will show page by pageNumber
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		
-		List<Product> products = productRepository.filterProducts(category, minPrice, maxPrice,minDiscount, sort);
-		// filtering on the based of product type 
-		if (!productType.isEmpty()) {
-		    products = products.stream()
-		                       .filter(p -> p.getProductType().stream()
-		                                   .anyMatch(c -> productType.stream()
-		                                   .anyMatch(c1 -> c1.equalsIgnoreCase(c))))
-		                                   .collect(Collectors.toList());
-		    
-		}
-		
-		if (stock != null) {
-			if(stock.equals("in_stock")) {
-				
-			products = products.stream().filter(p -> p.getQuantity()>0).collect(Collectors.toList());
-			}
-			else if(stock.equals("out_of_stock")) {
-				products = products.stream().filter(p ->p.getQuantity()<1).collect(Collectors.toList());
-			}
-		}
+	    Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
-        int startIndex = (int)pageable.getOffset();
-        int endIndex = Math.min(startIndex + pageable.getPageSize(), products.size());
-	
-		
-		List<Product> pageContent = products.subList(startIndex, endIndex);
-		Page<Product> filterProducts = new PageImpl<>(pageContent, pageable, products.size());
-		
-		return filterProducts;
+	    System.out.println("Calling filterProducts with parameters: " + category  + " , " + minPrice
+	            + ", " + maxPrice + ", " + minDiscount + ", " + sort);
+
+	    List<Product> products = productRepository.filterProducts(category, minPrice, maxPrice, minDiscount, sort);
+	    System.out.println("Products after filterProducts call: " + products.size() + " products");
+
+	    if (stock != null) {
+	        if (stock.equals("in_stock")) {
+	            products = products.stream().filter(p -> p.getQuantity() > 0).collect(Collectors.toList());
+	        } else if (stock.equals("out_of_stock")) {
+	            products = products.stream().filter(p -> p.getQuantity() < 1).collect(Collectors.toList());
+	        }
+	        System.out.println("Products after stock filter: " + products.size() + " products");
+	    }
+
+	    int startIndex = (int) pageable.getOffset();
+	    int endIndex = Math.min(startIndex + pageable.getPageSize(), products.size());
+	    System.out.println("Pagination: startIndex=" + startIndex + ", endIndex=" + endIndex);
+
+	    List<Product> pageContent = products.subList(startIndex, endIndex);
+	    Page<Product> filterProducts = new PageImpl<>(pageContent, pageable, products.size());
+
+	    return filterProducts;
 	}
-
 	@Override
 	public List<Product> findProducts() {
-		
+
 		return productRepository.findAll();
 	}
 

@@ -36,30 +36,26 @@ public class CartServiceImplemetation implements CartService {
 	@Override
 	public String addCartItem(Long userId, AddItemRequest req) throws ProductException {
 
-		Cart cart = cartRepository.findByUserId(userId);
-		Product product = productService.findProductById(req.getProductId());
+	    Cart cart = cartRepository.findByUserId(userId);
+	    Product product = productService.findProductById(req.getProductId());
 
-		CartItem isPresent = cartItemService.isCardItemExist(cart, product, userId);
+	    CartItem isPresent = cartItemService.isCardItemExist(cart, product, userId);
 
-		if (isPresent == null) {
-			CartItem cartItem = new CartItem();
-			cartItem.setProduct(product);
-			cartItem.setCart(cart);
-			cartItem.setQuantity(req.getQuantity());
-			cartItem.setUserId(userId);
+	    if (isPresent == null) {
+	        CartItem cartItem = new CartItem();
+	        cartItem.setProduct(product);
+	        cartItem.setCart(cart);
+	        cartItem.setUserId(userId);
 
-			int price = req.getQuantity() * product.getPrice();
-			cartItem.setPrice(price);
-			cartItem.setSize(req.getSize());
+	        cartItemService.createCartItem(cartItem);
 
-			CartItem createCartItem = cartItemService.createCartItem(cartItem);
+	        cart.getCartItems().add(cartItem);
+	    }
 
-			cart.getCartItems().add(createCartItem);
-		}
-
-		return "Item Added To Cart";
-
+	    return "Item Added To Cart";
 	}
+
+	
 
 	@Override
 	public Cart findUserCart(Long userId) {
