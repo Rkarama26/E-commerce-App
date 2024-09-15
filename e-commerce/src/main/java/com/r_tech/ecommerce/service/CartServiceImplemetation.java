@@ -35,8 +35,13 @@ public class CartServiceImplemetation implements CartService {
 
 	@Override
 	public String addCartItem(Long userId, AddItemRequest req) throws ProductException {
-
+		
+		if (userId == null) {
+		    throw new IllegalArgumentException("user cannot be null");
+		}
+		
 	    Cart cart = cartRepository.findByUserId(userId);
+	    
 	    Product product = productService.findProductById(req.getProductId());
 
 	    CartItem isPresent = cartItemService.isCardItemExist(cart, product, userId);
