@@ -35,31 +35,32 @@ public class CartServiceImplemetation implements CartService {
 
 	@Override
 	public String addCartItem(Long userId, AddItemRequest req) throws ProductException {
-
-		Cart cart = cartRepository.findByUserId(userId);
-		Product product = productService.findProductById(req.getProductId());
-
-		CartItem isPresent = cartItemService.isCardItemExist(cart, product, userId);
-
-		if (isPresent == null) {
-			CartItem cartItem = new CartItem();
-			cartItem.setProduct(product);
-			cartItem.setCart(cart);
-			cartItem.setQuantity(req.getQuantity());
-			cartItem.setUserId(userId);
-
-			int price = req.getQuantity() * product.getPrice();
-			cartItem.setPrice(price);
-			cartItem.setSize(req.getSize());
-
-			CartItem createCartItem = cartItemService.createCartItem(cartItem);
-
-			cart.getCartItems().add(createCartItem);
+		
+		if (userId == null) {
+		    throw new IllegalArgumentException("user cannot be null");
 		}
+		
+	    Cart cart = cartRepository.findByUserId(userId);
+	    
+	    Product product = productService.findProductById(req.getProductId());
 
-		return "Item Added To Cart";
+	    CartItem isPresent = cartItemService.isCardItemExist(cart, product, userId);
 
+	    if (isPresent == null) {
+	        CartItem cartItem = new CartItem();
+	        cartItem.setProduct(product);
+	        cartItem.setCart(cart);
+	        cartItem.setUserId(userId);
+
+	        cartItemService.createCartItem(cartItem);
+
+	        cart.getCartItems().add(cartItem);
+	    }
+
+	    return "Item Added To Cart";
 	}
+
+	
 
 	@Override
 	public Cart findUserCart(Long userId) {

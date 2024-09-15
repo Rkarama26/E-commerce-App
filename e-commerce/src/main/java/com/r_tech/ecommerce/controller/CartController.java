@@ -1,10 +1,13 @@
 package com.r_tech.ecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +20,6 @@ import com.r_tech.ecommerce.response.ApiResponse;
 import com.r_tech.ecommerce.service.CartService;
 import com.r_tech.ecommerce.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 
@@ -41,22 +43,34 @@ public class CartController {
 		
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 	}
+	
+	
+	
 	@PutMapping("/add")
-	@Operation(description = "add item to cart")
 	public ResponseEntity<ApiResponse> addItemToCart(@RequestBody AddItemRequest req,
 			 @RequestHeader("Authorization")String jwt)throws UserException, ProductException{
 		
+		System.out.println("Request body: " + req);
+	    System.out.println("req.getProductId(): " + req.getProductId());
+	    System.out.println("req.getQuantity(): " + req.getQuantity());
+	    System.out.println("Request headers: " + jwt);
+		
+		if (req.getProductId() == null) {
+		    throw new IllegalArgumentException("productId cannot be null in cotroller");
+		}
+		
+		
 		User user = userService.findUserProfileByJwt(jwt);
+		
+		System.out.print("controller called");
 		
 		cartService.addCartItem(user.getId(), req);
 		
-		ApiResponse res = new ApiResponse();
 		
-		res.setMessage("item added to cart");
-		res.setStatus(true);
+	    ApiResponse res = new ApiResponse("item added to cart", true);
+
 		
 		return new ResponseEntity<>(res, HttpStatus.OK);
-		
 		
 	}
 	

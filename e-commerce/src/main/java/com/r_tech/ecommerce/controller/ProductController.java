@@ -1,6 +1,6 @@
 package com.r_tech.ecommerce.controller;
 
-import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,12 +24,19 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping("/products")
-	public ResponseEntity<Page<Product>>findProductByCategoryHandler(@RequestParam String category,
-			@RequestParam List<String> productType,@RequestParam Integer minPrice, @RequestParam Integer maxPrice,
-			@RequestParam Integer minDiscount,@RequestParam String sort ,@RequestParam String stock,
-			@RequestParam Integer pageNumber,@RequestParam Integer pageSize ){
+	public ResponseEntity<Page<Product>>findProductByCategoryHandler(
+			@RequestParam String category,
+			@RequestParam Integer minPrice, 
+			@RequestParam Integer maxPrice,
+			@RequestParam Integer minDiscount,
+			@RequestParam String sort ,
+			@RequestParam String stock,
+			@RequestParam Integer pageNumber,
+			@RequestParam Integer pageSize
+			)
+	{
 		
-		Page<Product> res = productService.getAllProduct(category, productType,
+		Page<Product> res = productService.getAllProduct(category,
 			minPrice, maxPrice, minDiscount, sort, stock, pageNumber, pageSize);
 		
 		System.out.println("complete products");
@@ -37,7 +44,7 @@ public class ProductController {
 		return new ResponseEntity<>(res, HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping("/products/id/{productId}")
+	@GetMapping("/product/id/{productId}")
 	public ResponseEntity<Product> findProductById(@PathVariable Long productId )throws ProductException{
 		
 		Product product = productService.findProductById(productId);

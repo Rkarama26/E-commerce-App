@@ -16,6 +16,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 public class User {
@@ -55,12 +57,10 @@ public class User {
 	private List<Review> reviews = new ArrayList<>();
 	
 	private LocalDateTime createdAt;
-	
-	
+
 	 public User() {
 		 
 	 }
-
 
 	public Long getId() {
 		return id;

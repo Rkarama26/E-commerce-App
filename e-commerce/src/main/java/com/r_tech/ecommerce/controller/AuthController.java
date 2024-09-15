@@ -13,14 +13,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
+import com.r_tech.ecommerce.DAO.CartRepository;
 import com.r_tech.ecommerce.DAO.UserRepository;
 import com.r_tech.ecommerce.configuration.JwtProvider;
 import com.r_tech.ecommerce.exception.UserException;
+import com.r_tech.ecommerce.model.Cart;
 import com.r_tech.ecommerce.model.User;
 import com.r_tech.ecommerce.request.LoginRequest;
 import com.r_tech.ecommerce.response.AuthResponse;
+import com.r_tech.ecommerce.service.CartService;
 import com.r_tech.ecommerce.service.CustomUserServiceImplemetation;
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
@@ -28,18 +31,29 @@ public class AuthController {
 
 	@Autowired
 	private UserRepository userRepository;
+	
 	@Autowired
 	private JwtProvider jwtProvider;
+	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
 	@Autowired
 	private CustomUserServiceImplemetation customUserService;
+	
+	@Autowired
+	private CartService cartService;
+	
+	@Autowired
+	private CartRepository cartRepository; 
 	
 	
 
 	@PostMapping("/signup")
-	public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws UserException {
+	public ResponseEntity<AuthResponse> createUserHandler(@Valid @RequestBody User user) throws UserException {
 
+        System.out.println("user");
+		
 		String email = user.getEmail();
 		String password = user.getPassword();
 		String firstName = user.getFirstName();
@@ -58,6 +72,9 @@ public class AuthController {
 		createdUser.setLastName(lastName);
 
 		User savedUser = userRepository.save(createdUser);
+		Cart cart = cartService.createCart(savedUser);
+		cartRepository.save(cart);
+		
 
 		Authentication authentication = new UsernamePasswordAuthenticationToken(savedUser.getEmail(),
 				savedUser.getPassword());

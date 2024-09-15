@@ -1,17 +1,22 @@
 package com.r_tech.ecommerce.request;
+import org.slf4j.Logger;
+
+import org.slf4j.LoggerFactory;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class AddItemRequest {
 	
 	private Long productId;
-	
-	private String size;
-	
-	private Integer quantity;
-	
-	private Integer price;
+    
+    private Long quantity;
+    
+    
+    
+    
 
 	public AddItemRequest() {
-	
+		
 	}
 
 	public Long getProductId() {
@@ -22,34 +27,33 @@ public class AddItemRequest {
 		this.productId = productId;
 	}
 
-	public String getSize() {
-		return size;
-	}
-
-	public void setSize(String size) {
-		this.size = size;
-	}
-
-	public Integer getQuantity() {
+	public Long getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Integer quantity) {
+	public void setQuantity(Long quantity) {
 		this.quantity = quantity;
 	}
 
-	public Integer getPrice() {
-		return price;
+	@Override
+	public String toString() {
+		return "AddItemRequest [productId=" + productId + ", quantity=" + quantity + "]";
 	}
+	
+    private static final Logger logger = LoggerFactory.getLogger(AddItemRequest.class);
+	
+	 @JsonCreator
+	public AddItemRequest(@JsonProperty("productId") Long productId, @JsonProperty("quantity") Long quantity) {
+	        logger.debug("Deserializing AddItemRequest:--------- productId={}, quantity={}", productId, quantity);
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
+	        this.productId = productId;
+
+	        this.quantity = quantity;
+
+	    }
 	
 	
-	
-	
-	
-	
+    
+   
 
 }

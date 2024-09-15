@@ -1,6 +1,8 @@
 package com.r_tech.ecommerce.configuration;
 
 import java.util.Arrays;
+
+
 import java.util.Collections;
 
 import org.springframework.context.annotation.Bean;
@@ -24,7 +26,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class AppConfig {
 	
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+	 SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
 
         http.
 
@@ -65,11 +67,14 @@ public class AppConfig {
                 .httpBasic(withDefaults())
                 .formLogin(withDefaults());
         	
+        System.out.println("JwtValidator: Checking JWT token.");
+
+        
         	return http.build();
        
 	}
         	@Bean
-        	public PasswordEncoder passwordEncoder() 
+        	 PasswordEncoder passwordEncoder() 
         	{
         		return new BCryptPasswordEncoder();
         	}

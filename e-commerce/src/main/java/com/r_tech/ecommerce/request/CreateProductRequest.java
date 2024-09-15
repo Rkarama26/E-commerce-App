@@ -12,15 +12,13 @@ public class CreateProductRequest {
 	
 	private int discountedPrice;
 	
-	private int discountedPersent;
+	private int discountPercent;
 	
 	private int quantity;
 
-	private List<String> productType;
-
-	private String specification;
-
-	private String features;
+	private List<String> features; // Change to List<String>
+	
+    private List<String> specification; // Change to List<String>
 	
 	private byte[] datasheet;
 
@@ -84,12 +82,14 @@ public class CreateProductRequest {
 		this.discountedPrice = discountedPrice;
 	}
 
-	public int getDiscountedPersent() {
-		return discountedPersent;
+	
+
+	public int getDiscountPercent() {
+		return discountPercent;
 	}
 
-	public void setDiscountedPersent(int discountedPersent) {
-		this.discountedPersent = discountedPersent;
+	public void setDiscountPercent(int discountPercent) {
+		this.discountPercent = discountPercent;
 	}
 
 	public int getQuantity() {
@@ -100,30 +100,20 @@ public class CreateProductRequest {
 		this.quantity = quantity;
 	}
 
-
-
-	public List<String> getProductType() {
-		return productType;
-	}
-
-	public void setProductType(List<String> productType) {
-		this.productType = productType;
-	}
-
-	public String getSpecification() {
-		return specification;
-	}
-
-	public void setSpecification(String specification) {
-		this.specification = specification;
-	}
-
-	public String getFeatures() {
+	public List<String> getFeatures() {
 		return features;
 	}
 
-	public void setFeatures(String features) {
+	public void setFeatures(List<String> features) {
 		this.features = features;
+	}
+
+	public List<String> getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(List<String> specification) {
+		this.specification = specification;
 	}
 
 	public byte[] getDatasheet() {
