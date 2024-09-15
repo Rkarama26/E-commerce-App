@@ -19,8 +19,10 @@ public class CartItemServiceImplementation implements CartItemService {
 	
 	@Autowired
 	private CartItemRepository cartItemRepository;
+	
 	@Autowired
 	private UserService userService;
+	
 	@Autowired 
 	private CartRepository cartRepository;
 
@@ -74,7 +76,6 @@ public class CartItemServiceImplementation implements CartItemService {
 		else {
 			throw new UserException("You can't remove another users item");
 		}
-		
 	}
 
 	@Override

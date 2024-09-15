@@ -2,21 +2,27 @@ package com.r_tech.ecommerce.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.r_tech.ecommerce.exception.CartItemException;
 import com.r_tech.ecommerce.exception.ProductException;
 import com.r_tech.ecommerce.exception.UserException;
 import com.r_tech.ecommerce.model.Cart;
 import com.r_tech.ecommerce.model.User;
 import com.r_tech.ecommerce.request.AddItemRequest;
 import com.r_tech.ecommerce.response.ApiResponse;
+import com.r_tech.ecommerce.service.CartItemService;
 import com.r_tech.ecommerce.service.CartService;
 import com.r_tech.ecommerce.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,6 +38,9 @@ public class CartController {
 	private CartService cartService;
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private CartItemService cartItemService;
+	
 	
 	@GetMapping("/")
     @Operation(description = "find cart by user id")
@@ -74,7 +83,26 @@ public class CartController {
 		
 	}
 	
-	
+	@DeleteMapping("/cart-item/{cartItemId}")
+	public ResponseEntity<ApiResponse> removeCartItem(@PathVariable Long cartItemId,
+	        @RequestHeader("Authorization") String jwt) throws CartItemException, UserException {
+		
+	    System.out.println("cartItemId: " + cartItemId);
+	    System.out.println("Request headers: " + jwt);
+
+	    if (cartItemId == null) {
+	        throw new IllegalArgumentException("cartItemId cannot be null in controller");
+	    }
+
+	    User user = userService.findUserProfileByJwt(jwt);
+	    Long userId = user.getId();
+
+	    cartItemService.removeCartItem(userId, cartItemId);
+
+	    ApiResponse res = new ApiResponse("cart item removed successfully", true);
+
+	    return new ResponseEntity<>(res, HttpStatus.OK);
+	}
 	
 	
 	
