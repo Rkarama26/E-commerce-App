@@ -6,8 +6,8 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.r_tech.ecommerce.DAO.UserRepository;
-import com.r_tech.ecommerce.configuration.JwtProvider;
 import com.r_tech.ecommerce.exception.UserException;
+import com.r_tech.ecommerce.jwt.JwtProvider;
 import com.r_tech.ecommerce.model.User;
 
 @Service

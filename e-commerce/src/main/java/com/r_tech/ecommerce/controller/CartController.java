@@ -31,7 +31,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/cart")
-@Tag(name="Cart Controller", description = "find user cart and , add items to the cart")
+@Tag(name="Cart API's", description = "Find Cart, Add Items, Remove Items")
 public class CartController {
 	
 	@Autowired
@@ -52,8 +52,6 @@ public class CartController {
 		
 		return new ResponseEntity<Cart>(cart, HttpStatus.OK);
 	}
-	
-	
 	
 	@PutMapping("/add")
 	public ResponseEntity<ApiResponse> addItemToCart(@RequestBody AddItemRequest req,

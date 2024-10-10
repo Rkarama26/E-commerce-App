@@ -7,7 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.r_tech.ecommerce.response.ApiResponse;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
+@Tag(name = "Home API's")
 public class HomeController {
 
     @GetMapping("/")

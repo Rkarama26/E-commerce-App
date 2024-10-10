@@ -15,18 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.r_tech.ecommerce.DAO.CartRepository;
 import com.r_tech.ecommerce.DAO.UserRepository;
-import com.r_tech.ecommerce.configuration.JwtProvider;
 import com.r_tech.ecommerce.exception.UserException;
+import com.r_tech.ecommerce.jwt.JwtProvider;
 import com.r_tech.ecommerce.model.Cart;
 import com.r_tech.ecommerce.model.User;
 import com.r_tech.ecommerce.request.LoginRequest;
 import com.r_tech.ecommerce.response.AuthResponse;
 import com.r_tech.ecommerce.service.CartService;
 import com.r_tech.ecommerce.service.CustomUserServiceImplemetation;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Auth API's")
 public class AuthController {
 
 	@Autowired

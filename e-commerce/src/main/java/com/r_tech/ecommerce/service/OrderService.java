@@ -2,11 +2,14 @@ package com.r_tech.ecommerce.service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.r_tech.ecommerce.exception.OrderException;
 import com.r_tech.ecommerce.model.Address;
 import com.r_tech.ecommerce.model.Order;
 import com.r_tech.ecommerce.model.User;
 
+@Service
 public interface OrderService {
 	
 	
