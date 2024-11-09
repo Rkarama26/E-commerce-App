@@ -32,9 +32,8 @@ public class AppConfig {
 
 				sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
 
-				.authorizeHttpRequests(
-						auth -> auth.requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html")
-								.permitAll().anyRequest().authenticated()
+				.authorizeHttpRequests(auth -> auth.requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/actuator/**",
+						"/swagger-ui.html", "localhost:8080").permitAll().anyRequest().authenticated()
 
 				)
 
@@ -49,20 +48,22 @@ public class AppConfig {
 						CorsConfiguration config = new CorsConfiguration();
 
 						// Allowing origin from where this backend can be accessed
-						config.setAllowedHeaders(Arrays.asList(
-
-								"http://localhost:3000"));
-						// Allowing all type of methods
-						config.setAllowedMethods(Collections.singletonList("*"));
-						config.setAllowCredentials(true);
-						config.setAllowedHeaders(Collections.singletonList("Authorization"));
-						config.setExposedHeaders(Arrays.asList("Authorization"));
-						config.setMaxAge(3600l);
+						config.setAllowedOrigins(Collections.singletonList("http://localhost:3000")); // Allowing
+																										// frontend
+																										// origin
+						config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Specify
+																											// allowed
+																											// methods
+						config.setAllowCredentials(true); // Allow credentials (important for cookies/auth)
+						config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type")); // Allow necessary
+																									// headers
+						config.setExposedHeaders(Arrays.asList("Authorization", "Content-Type")); // Expose headers
+						config.setMaxAge(3600L); // Cache the CORS settings for 1 hour
 						return config;
 					}
 				})).httpBasic(withDefaults()).formLogin(withDefaults());
 
-	//	System.out.println("JwtValidator: Checking JWT token.");
+		// System.out.println("JwtValidator: Checking JWT token.");
 
 		return http.build();
 
