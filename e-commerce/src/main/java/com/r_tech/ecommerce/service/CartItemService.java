@@ -18,6 +18,5 @@ public interface CartItemService {
 	
 	public CartItem findCartItemById(Long cartItemId) throws CartItemException;
 
-	public CartItem updateCartItemQuantity(Long cartItemId, Integer quantityChange) throws CartItemException;
 	
 }

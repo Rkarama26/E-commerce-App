@@ -76,33 +76,7 @@ public class CartController {
 
 	}
 
-	@DeleteMapping("/cart_item/{cartItemId}")
-	public ResponseEntity<ApiResponse> removeCartItem(@PathVariable Long cartItemId,
-			@RequestHeader("Authorization") String jwt) throws CartItemException, UserException {
-
-		System.out.println("cartItemId: " + cartItemId);
-		System.out.println("Request headers: " + jwt);
-
-		if (cartItemId == null) {
-			throw new IllegalArgumentException("cartItemId cannot be null in controller");
-		}
-
-		User user = userService.findUserProfileByJwt(jwt);
-		Long userId = user.getId();
-
-		cartItemService.removeCartItem(userId, cartItemId);
-
-		ApiResponse res = new ApiResponse("cart item removed successfully", true);
-
-		return new ResponseEntity<>(res, HttpStatus.OK);
-	}
-
-	@PutMapping("/cart_item/{cartItemId}")
-	public ResponseEntity<CartItem> updateCartItemQuantity(@PathVariable Long cartItemId,
-			@RequestBody Integer quantityChange) throws CartItemException { // Directly accept Integer
-		
-		CartItem updatedCartItem = cartItemService.updateCartItemQuantity(cartItemId, quantityChange);
-		return ResponseEntity.ok(updatedCartItem);
-	}
+	
+	
 
 }

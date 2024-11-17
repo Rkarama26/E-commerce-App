@@ -43,6 +43,7 @@ public class CartItemServiceImplementation implements CartItemService {
 	public CartItem updateCartItem(Long userId, Long id, CartItem cartItem) throws CartItemException, UserException {
 
 		CartItem item = findCartItemById(id);
+		
 		User user = userService.findUserById(item.getUserId());
 
 		if (user.getId().equals(userId)) {
@@ -92,22 +93,6 @@ public class CartItemServiceImplementation implements CartItemService {
 
 	}
 
-	@Override
-	@Transactional
-	public CartItem updateCartItemQuantity(Long cartItemId, Integer quantityChange) throws CartItemException {
-
-		CartItem cartItem = cartItemRepository.findById(cartItemId)
-				.orElseThrow(() -> new CartItemException("Item not Found", cartItemId));
-
-		var updatedQuantity = (cartItem.getQuantity()) + quantityChange;
-
-		if (updatedQuantity <= 0) {
-			throw new IllegalArgumentException("Quntity cannot be less than 1. ");
-		}
-
-		cartItem.setQuantity(updatedQuantity);
-
-		return cartItemRepository.save(cartItem);
-	}
+	
 
 }
