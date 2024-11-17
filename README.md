@@ -1,4 +1,4 @@
-# Spring E-commerce Project
+# Spring Boot E-commerce Project
 
 ## Table of Contents
 - [Project Overview](#project-overview)
