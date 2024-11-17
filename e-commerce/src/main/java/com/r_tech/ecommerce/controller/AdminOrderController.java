@@ -17,8 +17,11 @@ import com.r_tech.ecommerce.model.Order;
 import com.r_tech.ecommerce.response.ApiResponse;
 import com.r_tech.ecommerce.service.OrderService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/admin/orders")
+@Tag(name = "Admin Order API's")
 public class AdminOrderController {
 
 	@Autowired

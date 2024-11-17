@@ -25,8 +25,6 @@ public class ProductServiceImplementation implements ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 
-	
-
 	@Autowired
 	private CategoryRepository categoryRepository;
 
@@ -132,35 +130,36 @@ public class ProductServiceImplementation implements ProductService {
 	}
 
 	@Override
-	public Page<Product> getAllProduct(String category, Integer minPrice, Integer maxPrice,
-	        Integer minDiscount, String sort, String stock, Integer pageNumber, Integer pageSize) {
+	public Page<Product> getAllProduct(String category, Integer minPrice, Integer maxPrice, Integer minDiscount,
+			String sort, String stock, Integer pageNumber, Integer pageSize) {
 
-	    Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 
-	    System.out.println("Calling filterProducts with parameters: " + category  + " , " + minPrice
-	            + ", " + maxPrice + ", " + minDiscount + ", " + sort);
+		System.out.println("Calling filterProducts with parameters: " + category + " , " + minPrice + ", " + maxPrice
+				+ ", " + minDiscount + ", " + sort);
 
-	    List<Product> products = productRepository.filterProducts(category, minPrice, maxPrice, minDiscount, sort);
-	    System.out.println("Products after filterProducts call: " + products.size() + " products");
+		List<Product> products = productRepository.filterProducts(category, minPrice, maxPrice, minDiscount, sort);
+		System.out.println("Products after filterProducts call: " + products.size() + " products");
 
-	    if (stock != null) {
-	        if (stock.equals("in_stock")) {
-	            products = products.stream().filter(p -> p.getQuantity() > 0).collect(Collectors.toList());
-	        } else if (stock.equals("out_of_stock")) {
-	            products = products.stream().filter(p -> p.getQuantity() < 1).collect(Collectors.toList());
-	        }
-	        System.out.println("Products after stock filter: " + products.size() + " products");
-	    }
+		if (stock != null) {
+			if (stock.equals("in_stock")) {
+				products = products.stream().filter(p -> p.getQuantity() > 0).collect(Collectors.toList());
+			} else if (stock.equals("out_of_stock")) {
+				products = products.stream().filter(p -> p.getQuantity() < 1).collect(Collectors.toList());
+			}
+			System.out.println("Products after stock filter: " + products.size() + " products");
+		}
 
-	    int startIndex = (int) pageable.getOffset();
-	    int endIndex = Math.min(startIndex + pageable.getPageSize(), products.size());
-	    System.out.println("Pagination: startIndex=" + startIndex + ", endIndex=" + endIndex);
+		int startIndex = (int) pageable.getOffset();
+		int endIndex = Math.min(startIndex + pageable.getPageSize(), products.size());
+		System.out.println("Pagination: startIndex=" + startIndex + ", endIndex=" + endIndex);
 
-	    List<Product> pageContent = products.subList(startIndex, endIndex);
-	    Page<Product> filterProducts = new PageImpl<>(pageContent, pageable, products.size());
+		List<Product> pageContent = products.subList(startIndex, endIndex);
+		Page<Product> filterProducts = new PageImpl<>(pageContent, pageable, products.size());
 
-	    return filterProducts;
+		return filterProducts;
 	}
+
 	@Override
 	public List<Product> findProducts() {
 

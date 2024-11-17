@@ -14,8 +14,11 @@ import com.r_tech.ecommerce.exception.UserException;
 import com.r_tech.ecommerce.model.User;
 import com.r_tech.ecommerce.service.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/admin")
+@Tag(name = "Admin API's")
 public class AdminUserController {
 	
 	@Autowired

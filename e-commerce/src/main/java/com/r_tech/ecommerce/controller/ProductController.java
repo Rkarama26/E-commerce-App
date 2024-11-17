@@ -16,8 +16,11 @@ import com.r_tech.ecommerce.exception.ProductException;
 import com.r_tech.ecommerce.model.Product;
 import com.r_tech.ecommerce.service.ProductService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api")
+@Tag(name = "Product API's")
 public class ProductController {
 	
 	@Autowired

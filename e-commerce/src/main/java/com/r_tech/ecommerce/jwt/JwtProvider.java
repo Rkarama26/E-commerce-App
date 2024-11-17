@@ -1,4 +1,4 @@
-package com.r_tech.ecommerce.configuration;
+package com.r_tech.ecommerce.jwt;
 
 import java.util.Date;
 
