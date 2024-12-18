@@ -48,6 +48,7 @@ The **Spring E-commerce Project** is a full-stack application that provides a ro
 - **Git for version control**
 - **Postman for API testing**
 - **Maven for project dependency management**
+- **Swagger for documentation**
 
 ---
 
