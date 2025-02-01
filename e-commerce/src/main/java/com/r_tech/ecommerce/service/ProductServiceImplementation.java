@@ -138,25 +138,22 @@ public class ProductServiceImplementation implements ProductService {
 	}
 
 	@Override
-	public Page<Product> getAllProduct(String category, List<String> productType, Integer minPrice, Integer maxPrice,
+	public Page<Product> getAllProduct(String category, Integer minPrice, Integer maxPrice,
 			Integer minDiscount, String sort, String stock, Integer pageNumber, Integer pageSize) {
 
-		
-		
-		
 		//using pagination it will show page by pageNumber
 		Pageable pageable = PageRequest.of(pageNumber, pageSize);
 		
 		List<Product> products = productRepository.filterProducts(category, minPrice, maxPrice,minDiscount, sort);
 		// filtering on the based of product type 
-		if (!productType.isEmpty()) {
-		    products = products.stream()
-		                       .filter(p -> p.getProductType().stream()
-		                                   .anyMatch(c -> productType.stream()
-		                                   .anyMatch(c1 -> c1.equalsIgnoreCase(c))))
-		                                   .collect(Collectors.toList());
-		    
-		}
+//		if (!productType.isEmpty()) {
+//		    products = products.stream()
+//		                       .filter(p -> p.getProductType().stream()
+//		                                   .anyMatch(c -> productType.stream()
+//		                                   .anyMatch(c1 -> c1.equalsIgnoreCase(c))))
+//		                                   .collect(Collectors.toList());
+//
+//		}
 		
 		if (stock != null) {
 			if(stock.equals("in_stock")) {

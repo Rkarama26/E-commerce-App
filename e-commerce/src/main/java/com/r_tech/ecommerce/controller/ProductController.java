@@ -25,11 +25,11 @@ public class ProductController {
 	
 	@GetMapping("/products")
 	public ResponseEntity<Page<Product>>findProductByCategoryHandler(@RequestParam String category,
-			@RequestParam List<String> productType,@RequestParam Integer minPrice, @RequestParam Integer maxPrice,
+			@RequestParam Integer minPrice, @RequestParam Integer maxPrice,
 			@RequestParam Integer minDiscount,@RequestParam String sort ,@RequestParam String stock,
 			@RequestParam Integer pageNumber,@RequestParam Integer pageSize ){
 		
-		Page<Product> res = productService.getAllProduct(category, productType,
+		Page<Product> res = productService.getAllProduct(category,
 			minPrice, maxPrice, minDiscount, sort, stock, pageNumber, pageSize);
 		
 		System.out.println("complete products");

@@ -1,55 +1,36 @@
 package com.r_tech.ecommerce.request;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
+
 public class AddItemRequest {
-	
-	private Long productId;
-	
-	private String size;
-	
-	private Integer quantity;
-	
-	private Integer price;
 
-	public AddItemRequest() {
-	
-	}
+    @NotNull(message = "Product ID cannot be null")
+    private Long productId;
 
-	public Long getProductId() {
-		return productId;
-	}
+    private Integer quantity;
 
-	public void setProductId(Long productId) {
-		this.productId = productId;
-	}
+    public AddItemRequest() {
 
-	public String getSize() {
-		return size;
-	}
+    }
 
-	public void setSize(String size) {
-		this.size = size;
-	}
+    public Long getProductId() {
+        return productId;
+    }
 
-	public Integer getQuantity() {
-		return quantity;
-	}
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
 
-	public Integer getPrice() {
-		return price;
-	}
+    public Integer getQuantity() {
+        return (quantity != null) ? quantity : 1;
+    }
 
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-	
-	
-	
-	
-	
-	
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
 
 }

@@ -36,15 +36,23 @@ public class CartItemServiceImplementation implements CartItemService {
 	}
 
 	@Override
-	public CartItem updateCartItem(Long userId, Long id, CartItem cartItem) throws CartItemException, UserException {
+	public CartItem updateCartItem(Long userId, Long cartItemId, int quantity) throws CartItemException, UserException {
 		
-		CartItem item = findCartItemById(id);
+		CartItem item = findCartItemById(cartItemId);
+		if(item == null){
+			throw new CartItemException("Cart Item Not Found");
+		}
+
 		User user = userService.findUserById(item.getUserId());
 		
 		if(user.getId().equals(userId)) {
-			item.setQuantity(cartItem.getQuantity());
-			item.setPrice(item.getQuantity()*item.getProduct().getPrice());
-			item.setDiscountedPrice(item.getProduct().getDiscountedPrice()*item.getQuantity());
+			item.setQuantity(quantity);
+
+			item.setPrice(item.getQuantity() * item.getProduct().getPrice());
+			item.setDiscountedPrice(item.getQuantity() * item.getProduct().getDiscountedPrice());
+		}
+		else{
+			throw new UserException("User does not have permission to update this cart item");
 		}
 		
 		return cartItemRepository.save(item);
@@ -74,7 +82,7 @@ public class CartItemServiceImplementation implements CartItemService {
 		else {
 			throw new UserException("You can't remove another users item");
 		}
-		
+
 	}
 
 	@Override

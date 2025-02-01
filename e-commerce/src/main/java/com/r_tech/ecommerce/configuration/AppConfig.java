@@ -2,6 +2,7 @@ package com.r_tech.ecommerce.configuration;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -47,6 +48,8 @@ public class AppConfig {
 
                         CorsConfiguration config = new CorsConfiguration();
 
+
+                        config.setAllowedOrigins(List.of("http://localhost:3000"));
                         //Allowing origin from where this backend can be accessed
                         config.setAllowedHeaders(Arrays.asList(
 
@@ -54,9 +57,9 @@ public class AppConfig {
                                 "http://localhost:3000"
                         ));
                         //Allowing all type of methods
-                        config.setAllowedMethods(Collections.singletonList("*"));
+                        config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                         config.setAllowCredentials(true);
-                        config.setAllowedHeaders(Collections.singletonList("Authorization"));
+                        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
                         config.setExposedHeaders(Arrays.asList("Authorization"));
                         config.setMaxAge(3600l);
                         return config;
