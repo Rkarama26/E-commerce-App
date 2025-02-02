@@ -12,8 +12,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.r_tech.ecommerce.DAO.CategoryRepository;
-import com.r_tech.ecommerce.DAO.ProductRepository;
+import com.r_tech.ecommerce.repository.CategoryRepository;
+import com.r_tech.ecommerce.repository.ProductRepository;
 import com.r_tech.ecommerce.exception.ProductException;
 import com.r_tech.ecommerce.model.Category;
 import com.r_tech.ecommerce.model.Product;

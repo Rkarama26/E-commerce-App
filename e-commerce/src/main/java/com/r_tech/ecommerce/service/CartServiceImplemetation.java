@@ -1,6 +1,6 @@
 package com.r_tech.ecommerce.service;
 
-import com.r_tech.ecommerce.DAO.CartRepository;
+import com.r_tech.ecommerce.repository.CartRepository;
 import com.r_tech.ecommerce.exception.CartNotFoundException;
 import com.r_tech.ecommerce.exception.ProductException;
 import com.r_tech.ecommerce.model.Cart;

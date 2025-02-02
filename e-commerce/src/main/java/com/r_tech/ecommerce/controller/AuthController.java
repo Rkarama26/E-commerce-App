@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.r_tech.ecommerce.DAO.UserRepository;
+import com.r_tech.ecommerce.repository.UserRepository;
 import com.r_tech.ecommerce.configuration.JwtProvider;
 import com.r_tech.ecommerce.exception.UserException;
 import com.r_tech.ecommerce.model.User;

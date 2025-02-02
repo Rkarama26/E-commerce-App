@@ -1,4 +1,4 @@
-package com.r_tech.ecommerce.DAO;
+package com.r_tech.ecommerce.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

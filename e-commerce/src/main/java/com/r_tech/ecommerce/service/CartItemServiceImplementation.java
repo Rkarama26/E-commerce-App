@@ -5,8 +5,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.r_tech.ecommerce.DAO.CartItemRepository;
-import com.r_tech.ecommerce.DAO.CartRepository;
+import com.r_tech.ecommerce.repository.CartItemRepository;
+import com.r_tech.ecommerce.repository.CartRepository;
 import com.r_tech.ecommerce.exception.CartItemException;
 import com.r_tech.ecommerce.exception.UserException;
 import com.r_tech.ecommerce.model.Cart;

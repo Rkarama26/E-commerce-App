@@ -1,11 +1,19 @@
 package com.r_tech.ecommerce.model;
 
+import com.r_tech.ecommerce.domain.PaymentStatus;
+import lombok.Data;
+
+@Data
 public class PaymentDetails {
 	
 	private String paymentMethod;
 	
-	private String status;
-	
+	private PaymentStatus status;
+
+	public void setStatus(PaymentStatus status) {
+		this.status = status;
+	}
+
 	private String paymentid;
 	
 	private String razorpayPaymentLinkId;
@@ -29,13 +37,6 @@ public class PaymentDetails {
 		this.paymentMethod = paymentMethod; 
 	}
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
 	public String getPaymentid() {
 		return paymentid;
@@ -77,8 +78,8 @@ public class PaymentDetails {
 		this.razorpayPaymentId = razorpayPaymentId;
 	}
 
-	public PaymentDetails(String paymentMethod, String status, String paymentid, String razorpayPaymentLinkId,
-			String razorpayPaymentLinkReferenceId, String razorPaymentLinkStatus, String razorpayPaymentId) {
+	public PaymentDetails(String paymentMethod, PaymentStatus status, String paymentid, String razorpayPaymentLinkId,
+						  String razorpayPaymentLinkReferenceId, String razorPaymentLinkStatus, String razorpayPaymentId) {
 		super();
 		this.paymentMethod = paymentMethod;
 		this.status = status;

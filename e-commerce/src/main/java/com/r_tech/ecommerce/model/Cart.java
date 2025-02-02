@@ -30,7 +30,7 @@ public class Cart {
 	private Set<CartItem> cartItems = new HashSet<>();
 	
 	@Column(name="total_item")
-	private double totalItem;
+	private int totalItem;
 	
 	@Column(name="total_price")
 	private double totalPrice;
@@ -63,11 +63,11 @@ public class Cart {
 		this.cartItems = cartItems;
 	}
 
-	public double getTotalItem() {
+	public int getTotalItem() {
 		return totalItem;
 	}
 
-	public void setTotalItem(double totalItem) {
+	public void setTotalItem(int totalItem) {
 		this.totalItem = totalItem;
 	}
 

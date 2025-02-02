@@ -8,27 +8,26 @@ import com.r_tech.ecommerce.model.Order;
 import com.r_tech.ecommerce.model.User;
 
 public interface OrderService {
-	
-	
-	public Order createOrder(User user, Address shippingAddress);
-    
+
+
+	public Order createOrder(User user, Address shippingAdress);
+
 	public Order findOrderById(Long orderId) throws OrderException;
-	
-	public List<Order> usersOrderHistory(Long userId) throws OrderException;
-	
-	//admin
+
+	public List<Order> usersOrderHistory(Long userId);
+
 	public Order placedOrder(Long orderId) throws OrderException;
-	//admin
-	public Order confirmOrder(Long orderId) throws OrderException;
-	//admin 
+
+	public Order confirmedOrder(Long orderId)throws OrderException;
+
 	public Order shippedOrder(Long orderId) throws OrderException;
-	//admin
-	public Order deliverOrder(Long orderId) throws OrderException;
-	// user, admin
-	public Order cancelOrder(Long orderId) throws OrderException;
-	//admin
-	public List<Order> getAllOrder();
-	//admin
+
+	public Order deliveredOrder(Long orderId) throws OrderException;
+
+	public Order cancledOrder(Long orderId) throws OrderException;
+
+	public List<Order>getAllOrders();
+
 	public void deleteOrder(Long orderId) throws OrderException;
-	
+
 }

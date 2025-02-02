@@ -1,4 +1,4 @@
-package com.r_tech.ecommerce.DAO;
+package com.r_tech.ecommerce.repository;
 
 import java.util.List;
 

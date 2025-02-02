@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.r_tech.ecommerce.DAO.UserRepository;
+import com.r_tech.ecommerce.repository.UserRepository;
 import com.r_tech.ecommerce.model.User;
 
 @Service // using this class to override default password and user

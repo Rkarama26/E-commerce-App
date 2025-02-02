@@ -1,117 +1,40 @@
 package com.r_tech.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class OrderItem {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@ManyToOne
-	private Order order;
-	
-	@ManyToOne
-	private Product product;
-	
-	private String size;
-	
-	private Integer quantity;
-	
-	private Integer price;
-	
-	private Long userId;
-	
-	private LocalDateTime  deliveryDate;
-	
-	public OrderItem() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+    @ManyToOne
+    @JsonIgnore
+    private Order order;
 
-	public Long getId() {
-		return id;
-	}
+    @ManyToOne
+    private Product product;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String size;
 
-	public Order getOrder() {
-		return order;
-	}
+    private Integer quantity;
 
-	public void setOrder(Order order) {
-		this.order = order;
-	}
+    private Integer price;
 
-	public Product getProduct() {
-		return product;
-	}
+    private Long userId;
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    private LocalDateTime deliveryDate;
 
-	public String getSize() {
-		return size;
-	}
+    private Integer discountedPrice;
 
-	public void setSize(String size) {
-		this.size = size;
-	}
 
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
-
-	public Integer getPrice() {
-		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public LocalDateTime getDeliveryDate() {
-		return deliveryDate;
-	}
-
-	public void setDeliveryDate(LocalDateTime deliveryDate) {
-		this.deliveryDate = deliveryDate;
-	}
-
-	public OrderItem(Long id, Order order, Product product, String size, Integer quantity, Integer price, Long userId,
-			LocalDateTime deliveryDate) {
-		super();
-		this.id = id;
-		this.order = order;
-		this.product = product;
-		this.size = size;
-		this.quantity = quantity;
-		this.price = price;
-		this.userId = userId;
-		this.deliveryDate = deliveryDate;
-	}
-	
 }

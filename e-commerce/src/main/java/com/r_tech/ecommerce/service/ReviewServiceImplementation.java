@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.r_tech.ecommerce.DAO.ReviewRepository;
+import com.r_tech.ecommerce.repository.ReviewRepository;
 import com.r_tech.ecommerce.exception.ProductException;
 import com.r_tech.ecommerce.model.Product;
 import com.r_tech.ecommerce.model.Review;

@@ -1,4 +1,4 @@
-package com.r_tech.ecommerce.DAO;
+package com.r_tech.ecommerce.repository;
 
 import java.util.List;
 
@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.r_tech.ecommerce.model.Category;
 import com.r_tech.ecommerce.model.Product;
 
 @Repository
