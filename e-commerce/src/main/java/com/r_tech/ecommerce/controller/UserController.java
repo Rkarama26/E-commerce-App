@@ -15,11 +15,13 @@ import com.r_tech.ecommerce.exception.UserException;
 import com.r_tech.ecommerce.model.User;
 import com.r_tech.ecommerce.service.UserService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "User API's")
 public class UserController {
 	
 	@Autowired

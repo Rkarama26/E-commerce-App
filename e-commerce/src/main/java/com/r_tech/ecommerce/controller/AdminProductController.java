@@ -20,8 +20,11 @@ import com.r_tech.ecommerce.request.CreateProductRequest;
 import com.r_tech.ecommerce.response.ApiResponse;
 import com.r_tech.ecommerce.service.ProductService;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/api/admin/products")
+@Tag(name = "Admin Product API's")
 public class AdminProductController {
 
 	@Autowired

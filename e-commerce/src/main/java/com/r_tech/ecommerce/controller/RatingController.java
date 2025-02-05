@@ -21,9 +21,11 @@ import com.r_tech.ecommerce.service.RatingService;
 import com.r_tech.ecommerce.service.UserService;
 
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping("/api/ratings")
+@Tag(name = "Rating API's")
 public class RatingController {
 
 	@Autowired

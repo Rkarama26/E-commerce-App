@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,17 +33,22 @@ public class Product {
 	private int discountedPrice;
 
 	@Column(name = "discount_percent")
-	private int disountedPersent;
+	private int discountPercent;
 
 	@Column(name = "quantity")
 	private int quantity;
 
-	@Column(name = "product_type")
-	private List<String> productType;
 
-	private String specification;
 
-	private String features;
+	@ElementCollection
+	@CollectionTable(name = "product_features", joinColumns = @JoinColumn(name = "product_id"))
+	@Column(name = "feature")
+	private List<String> features;
+
+	@ElementCollection
+	@CollectionTable(name = "product_specifications", joinColumns = @JoinColumn(name = "product_id"))
+	@Column(name = "specification")
+	private List<String> specification;
 
 	@Column(name = "image_url")
 	private String imageUrl;
@@ -62,13 +69,7 @@ public class Product {
 	@Lob
 	private byte[] datasheet;
 
-	public int getDisountedPersent() {
-		return disountedPersent;
-	}
-
-	public void setDisountedPersent(int disountedPersent) {
-		this.disountedPersent = disountedPersent;
-	}
+	
 
 	public byte[] getDatasheet() {
 		return datasheet;
@@ -120,12 +121,14 @@ public class Product {
 		this.discountedPrice = discountedPrice;
 	}
 
-	public int getDisountedPercent() {
-		return disountedPersent;
+	
+
+	public int getDiscountPercent() {
+		return discountPercent;
 	}
 
-	public void setDisountedPercent(int disountedPercent) {
-		this.disountedPersent = disountedPercent;
+	public void setDiscountPercent(int discountPercent) {
+		this.discountPercent = discountPercent;
 	}
 
 	public int getQuantity() {
@@ -136,22 +139,20 @@ public class Product {
 		this.quantity = quantity;
 	}
 
-	
-
-	public String getSpecification() {
-		return specification;
-	}
-
-	public void setSpecification(String specification) {
-		this.specification = specification;
-	}
-
-	public String getFeatures() {
+	public List<String> getFeatures() {
 		return features;
 	}
 
-	public void setFeatures(String features) {
+	public void setFeatures(List<String> features) {
 		this.features = features;
+	}
+
+	public List<String> getSpecification() {
+		return specification;
+	}
+
+	public void setSpecification(List<String> specification) {
+		this.specification = specification;
 	}
 
 	public String getImageUrl() {
@@ -198,8 +199,17 @@ public class Product {
 		return createdAt;
 	}
 
+	public void setCreatedAt(LocalDateTime createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Product(Long id, String title, String description, int price, int discountedPrice, int disountedPersent,
-			int quantity, List<String> productType, String specification, String features, String imageUrl,
+			int quantity, List<String> features, List<String> specification, String imageUrl,
 			List<Rating> rating, List<Review> reviews, int numRatings, Category category, byte[] datasheet,
 			LocalDateTime createdAt) {
 		super();
@@ -208,11 +218,10 @@ public class Product {
 		this.description = description;
 		this.price = price;
 		this.discountedPrice = discountedPrice;
-		this.disountedPersent = disountedPersent;
+		this.discountPercent = disountedPersent;
 		this.quantity = quantity;
-		this.productType = productType;
-		this.specification = specification;
 		this.features = features;
+		this.specification = specification;
 		this.imageUrl = imageUrl;
 		this.rating = rating;
 		this.reviews = reviews;
@@ -220,24 +229,6 @@ public class Product {
 		this.category = category;
 		this.datasheet = datasheet;
 		this.createdAt = createdAt;
-	}
-
-	public void setCreatedAt(LocalDateTime createdAt) {
-		this.createdAt = createdAt;
-	}
-
-	
-
-	public List<String> getProductType() {
-		return productType;
-	}
-
-	public void setProductType(List<String> productType) {
-		this.productType = productType;
-	}
-
-	public Product() {
-		// TODO Auto-generated constructor stub
 	}
 
 }

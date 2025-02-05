@@ -3,10 +3,10 @@ package com.r_tech.ecommerce.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.r_tech.ecommerce.jwt.JwtProvider;
 import org.springframework.stereotype.Service;
 
 import com.r_tech.ecommerce.repository.UserRepository;
-import com.r_tech.ecommerce.configuration.JwtProvider;
 import com.r_tech.ecommerce.exception.UserException;
 import com.r_tech.ecommerce.model.User;
 
