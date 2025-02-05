@@ -1,9 +1,6 @@
 package com.r_tech.ecommerce.configuration;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,29 +12,31 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
-import jakarta.servlet.http.HttpServletRequest;
-import static org.springframework.security.config.Customizer.withDefaults;
 
+import java.util.Arrays;
+import java.util.List;
+
+import static org.springframework.security.config.Customizer.withDefaults;
 
 
 @Configuration
 @EnableWebSecurity
 public class AppConfig {
-	
-	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.
 
                 sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                
-                .authorizeHttpRequests(auth -> 
-                auth.requestMatchers("/api/**")
-                    .authenticated()
-                    .anyRequest()
-                    .permitAll())
-                
-                .addFilterBefore( new JwtValidator(), BasicAuthenticationFilter.class)
+
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/api/**")
+                                .authenticated()
+                                .anyRequest()
+                                .permitAll())
+
+                .addFilterBefore(new JwtValidator(), BasicAuthenticationFilter.class)
                 .csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.configurationSource(new CorsConfigurationSource() {
                     //Enabling CORS 
@@ -48,18 +47,17 @@ public class AppConfig {
 
                         CorsConfiguration config = new CorsConfiguration();
 
-
-                        config.setAllowedOrigins(List.of("http://localhost:3000"));
                         //Allowing origin from where this backend can be accessed
-                        config.setAllowedHeaders(Arrays.asList(
+                        config.setAllowedOrigins(List.of(
+                                "http://localhost:3000",
+                                "https://r-tech-gules.vercel.app"));
 
-                        		
-                                "http://localhost:3000"
-                        ));
+                        config.setAllowedHeaders(List.of(
+                                "Authorization",
+                                "Content-Type"));
                         //Allowing all type of methods
                         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                         config.setAllowCredentials(true);
-                        config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
                         config.setExposedHeaders(Arrays.asList("Authorization"));
                         config.setMaxAge(3600l);
                         return config;
@@ -67,16 +65,16 @@ public class AppConfig {
                 }))
                 .httpBasic(withDefaults())
                 .formLogin(withDefaults());
-        	
-        	return http.build();
-       
-	}
-        	@Bean
-        	public PasswordEncoder passwordEncoder() 
-        	{
-        		return new BCryptPasswordEncoder();
-        	}
-	
-	}
+
+        return http.build();
+
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+}
 
 
