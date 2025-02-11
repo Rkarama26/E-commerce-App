@@ -1,10 +1,13 @@
 package com.r_tech.ecommerce.service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.r_tech.ecommerce.exception.ResourceNotFoundException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -20,6 +23,7 @@ import com.r_tech.ecommerce.model.Product;
 import com.r_tech.ecommerce.request.CreateProductRequest;
 
 @Service
+@Slf4j
 public class ProductServiceImplementation implements ProductService {
 
 	@Autowired
@@ -128,13 +132,22 @@ public class ProductServiceImplementation implements ProductService {
 
 	
 	@Override
-        public List<Product> findProductByCategory(String category) {
-		
-		System.out.println("category --- "+category);
-		
-		List<Product> products = productRepository.findByCategory(category);
-		
-		return products;
+	public List<Product> findProductByCategory(String categoryName) throws ResourceNotFoundException {
+		log.info("Fetching products for category: {}", categoryName);
+
+		// Find the category by name
+		Category category = categoryRepository.findFirstByName(categoryName)
+				.orElseThrow(() -> new ResourceNotFoundException("Category not found: " + categoryName));
+		if (category == null) {
+			throw new ResourceNotFoundException("Category not found: " + categoryName);
+		}
+
+		// Get all categories including subcategories
+		List<Category> allCategories = new ArrayList<>();
+		collectAllCategories(category, allCategories);
+
+		// Fetch products for all found categories
+		return productRepository.findByCategoryIn(allCategories);
 	}
 
 	@Override
@@ -181,4 +194,38 @@ public class ProductServiceImplementation implements ProductService {
 		return productRepository.findAll();
 	}
 
+	private void collectAllCategories(Category category, List<Category> allCategories) {
+		allCategories.add(category); // Add the current category
+
+		// Fetch all subcategories recursively
+		List<Category> subcategories = categoryRepository.findSubcategories(category);
+		for (Category subcategory : subcategories) {
+			collectAllCategories(subcategory, allCategories);
+		}
+	}
+
+
+
+//	public List<Product> getProductsByAnyCategory(String categoryName) throws ResourceNotFoundException {
+//		Category category = categoryRepository.findByName(categoryName);
+//		if (category == null) {
+//			throw new ResourceNotFoundException("Category not found: " + categoryName);
+//		}
+//
+//		List<Category> allSubCategories = getAllSubCategories(category);
+//		return productRepository.findByCategoryIn(allSubCategories);
+//	}
+//
+//
+//	private List<Category> getAllSubCategories(Category category) {
+//		List<Category> subCategories = categoryRepository.findAllByParentCategory(category);
+//		List<Category> allCategories = new ArrayList<>(subCategories);
+//
+//		for (Category subCategory : subCategories) {
+//			allCategories.addAll(getAllSubCategories(subCategory));
+//		}
+//
+//		allCategories.add(category); // Include the given category itself
+//		return allCategories;
+//	}
 }

@@ -2,15 +2,14 @@ package com.r_tech.ecommerce.controller;
 
 import java.util.List;
 
+import com.r_tech.ecommerce.exception.ResourceNotFoundException;
+import com.r_tech.ecommerce.model.Category;
+import com.r_tech.ecommerce.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.r_tech.ecommerce.exception.ProductException;
 import com.r_tech.ecommerce.model.Product;
@@ -22,12 +21,15 @@ public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
+
+	@Autowired
+	private CategoryRepository categoryRepository;
 	
 	@GetMapping("/products")
-	public ResponseEntity<Page<Product>>findProductByCategoryHandler(@RequestParam String category,
-			@RequestParam Integer minPrice, @RequestParam Integer maxPrice,
-			@RequestParam Integer minDiscount,@RequestParam String sort ,@RequestParam String stock,
-			@RequestParam Integer pageNumber,@RequestParam Integer pageSize ){
+	public ResponseEntity<Page<Product>>findProductByCategoryHandler(@RequestHeader("Authorization") String jwt,  @RequestParam String category,
+																	 @RequestParam Integer minPrice, @RequestParam Integer maxPrice,
+																	 @RequestParam Integer minDiscount, @RequestParam String sort , @RequestParam String stock,
+																	 @RequestParam Integer pageNumber, @RequestParam Integer pageSize ){
 		
 		Page<Product> res = productService.getAllProduct(category,
 			minPrice, maxPrice, minDiscount, sort, stock, pageNumber, pageSize);
@@ -38,7 +40,7 @@ public class ProductController {
 	}
 	
 	@GetMapping("/products/id/{productId}")
-	public ResponseEntity<Product> findProductById(@PathVariable Long productId )throws ProductException{
+	public ResponseEntity<Product> findProductById(@RequestHeader("Authorization") String jwt, @PathVariable Long productId )throws ProductException{
 		
 		Product product = productService.findProductById(productId);
 		
@@ -46,9 +48,20 @@ public class ProductController {
 		return new ResponseEntity<Product>(product, HttpStatus.ACCEPTED);
 		
 	}
-	
-	
-	
-	
+
+
+	@GetMapping("/products/{categoryName}")
+	public ResponseEntity<List<Product>> getProductsByAnyCategory( @RequestHeader("Authorization") String jwt, @PathVariable String categoryName) throws ResourceNotFoundException {
+
+		if (categoryName == null || categoryName.trim().isEmpty()) {
+			throw new IllegalArgumentException("Category name cannot be null or empty");
+		}
+		List<Product> products = productService.findProductByCategory(categoryName);
+		return ResponseEntity.ok(products);
+	}
+
+
+
+
 
 }
