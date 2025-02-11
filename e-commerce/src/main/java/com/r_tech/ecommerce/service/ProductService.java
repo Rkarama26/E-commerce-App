@@ -2,6 +2,8 @@ package com.r_tech.ecommerce.service;
 
 import java.util.List;
 
+import com.r_tech.ecommerce.exception.ResourceNotFoundException;
+import com.r_tech.ecommerce.model.Category;
 import org.springframework.data.domain.Page;
 
 import com.r_tech.ecommerce.exception.ProductException;
@@ -18,13 +20,16 @@ public interface ProductService {
 	
 	public Product findProductById(Long id)throws ProductException;
 	
-	public List<Product> findProductByCategory(String category);
+	public List<Product> findProductByCategory(String category) throws ResourceNotFoundException;
 	
 	public Page<Product>getAllProduct(String category, Integer minPrice, Integer maxPrice,
 			 Integer minDiscount, String sort , String stock, Integer pageNumber, Integer pageSize);
 
 	public List<Product> findProducts();
 
+	//public List<Product> getProductsByAnyCategory(String categoryName) throws ResourceNotFoundException;
 
 
-}
+
+
+	}

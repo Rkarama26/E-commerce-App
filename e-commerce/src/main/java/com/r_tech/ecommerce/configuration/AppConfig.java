@@ -50,6 +50,7 @@ public class AppConfig {
                         //Allowing origin from where this backend can be accessed
                         config.setAllowedOrigins(List.of(
                                 "http://localhost:3000",
+                                "http://localhost:3001",
                                 "https://r-tech-gules.vercel.app"));
 
                         config.setAllowedHeaders(List.of(

@@ -3,6 +3,7 @@ package com.r_tech.ecommerce.repository;
 import java.util.List;
 
 
+import com.r_tech.ecommerce.model.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,4 +31,6 @@ public interface ProductRepository extends JpaRepository<Product, Long>{
 		public List<Product> findByCategory(@Param("category") String category);
 
 
-	}
+	@Query("SELECT p FROM Product p WHERE p.category IN :categories")
+	List<Product> findByCategoryIn(@Param("categories") List<Category> categories);
+}
