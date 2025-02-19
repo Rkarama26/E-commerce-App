@@ -1,6 +1,6 @@
 package com.r_tech.ecommerce.controller;
 
-import com.r_tech.ecommerce.exception.OrderException;
+import com.r_tech.ecommerce.exception.OrderNotFoundException;
 import com.r_tech.ecommerce.exception.UserException;
 import com.r_tech.ecommerce.model.Address;
 import com.r_tech.ecommerce.model.Order;
@@ -40,9 +40,8 @@ public class OrderController {
         return new ResponseEntity<Order>(order, HttpStatus.CREATED);
     }
 
-
     @GetMapping("/user")
-    public ResponseEntity<List<Order>> usersOrderHistory(@RequestHeader("Authorization") String jwt) throws UserException, OrderException {
+    public ResponseEntity<List<Order>> usersOrderHistory(@RequestHeader("Authorization") String jwt) throws UserException, OrderNotFoundException {
 
         User user = userService.findUserProfileByJwt(jwt);
 
@@ -52,9 +51,9 @@ public class OrderController {
     }
 
 
-    @GetMapping("/{Id}")
-    public ResponseEntity<Order> findOrderById(@PathVariable("Id") Long orderId,
-                                               @RequestHeader("Authorization") String jwt) throws UserException, OrderException {
+    @GetMapping("/{orderId}")
+    public ResponseEntity<Order> findOrderById(@PathVariable("orderId") Long orderId,
+                                               @RequestHeader("Authorization") String jwt) throws UserException, OrderNotFoundException {
 
         User user = userService.findUserProfileByJwt(jwt);
 

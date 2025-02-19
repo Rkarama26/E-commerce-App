@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import com.r_tech.ecommerce.exception.OrderException;
+import com.r_tech.ecommerce.exception.OrderNotFoundException;
 import com.r_tech.ecommerce.model.Order;
 import com.r_tech.ecommerce.response.PaymentLinkResponse;
 import com.razorpay.PaymentLink;
@@ -33,7 +33,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private OrderRepository orderRepository;
 
-    public PaymentLinkResponse createPaymentLink(Long orderId) throws OrderException, RazorpayException {
+    public PaymentLinkResponse createPaymentLink(Long orderId) throws OrderNotFoundException, RazorpayException {
         Order order = orderService.findOrderById(orderId);
 
         try {
@@ -69,7 +69,7 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-    public ApiResponse processPaymentRedirect(String paymentId, Long orderId) throws OrderException, RazorpayException {
+    public ApiResponse processPaymentRedirect(String paymentId, Long orderId) throws OrderNotFoundException, RazorpayException {
         Order order = orderService.findOrderById(orderId);
         RazorpayClient razorpayClient = new RazorpayClient(apiKey, apiSecret);
 

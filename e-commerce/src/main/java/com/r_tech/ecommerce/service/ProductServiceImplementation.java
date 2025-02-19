@@ -97,11 +97,12 @@ public class ProductServiceImplementation implements ProductService {
 
 	// API - Delete Product 
 	@Override
-	public String deleteproduct(Long productId) throws ProductException {
-		Product product = findProductById(productId);
-		productRepository.delete(product);
+	public void deleteproduct(Long productId) throws ProductException {
+		Product product = productRepository.findById(productId)
+				.orElseThrow(() -> new ProductException("Product not found with ID: " + productId));
 
-		return "Product deleted Successfully";
+
+		productRepository.delete(product);
 	}
 	
 	
