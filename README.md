@@ -10,9 +10,6 @@
 - [Future Enhancements](#future-enhancements)
 - [Contributing](https://github.com/Rkarama26/R-tech-frontend)
 
-- 
-- [Frontend](#contributing)
-
 ---
 
 ## Project Overview
