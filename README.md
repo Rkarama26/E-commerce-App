@@ -8,7 +8,10 @@
 - [API Documentation](#api-documentation)
 - [Project Structure](#project-structure)
 - [Future Enhancements](#future-enhancements)
-- [Contributing](#contributing)
+- [Contributing](https://github.com/Rkarama26/R-tech-frontend)
+
+- 
+- [Frontend](#contributing)
 
 ---
 
@@ -33,6 +36,9 @@ The **Spring E-commerce Project** is a full-stack application that provides a ro
   - User and order management.
 - **Responsive Design:** 
   - Built for a seamless user experience on both desktop and mobile platforms.
+- **- **payment gateway integration.**
+  - Razorpay payment gateway 
+
 
 ---
 
@@ -109,7 +115,6 @@ Here are the main API endpoints for the project:
 
  
 ## Future Enhancements
-- **Implement payment gateway integration.**
 - **Add email notifications for orders.**
 - **Enhance product recommendation using AI/ML.**
 - **Add multi-language support.**
