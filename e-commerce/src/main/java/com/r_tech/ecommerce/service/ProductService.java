@@ -3,7 +3,6 @@ package com.r_tech.ecommerce.service;
 import java.util.List;
 
 import com.r_tech.ecommerce.exception.ResourceNotFoundException;
-import com.r_tech.ecommerce.model.Category;
 import org.springframework.data.domain.Page;
 
 import com.r_tech.ecommerce.exception.ProductException;
@@ -14,7 +13,7 @@ public interface ProductService {
 	
 	public Product createProduct(CreateProductRequest req);
 	
-	public String deleteproduct(Long productId)throws ProductException;
+	public void deleteproduct(Long productId)throws ProductException;
 	
 	public Product updateProduct(Long productId, Product reg) throws ProductException;
 	

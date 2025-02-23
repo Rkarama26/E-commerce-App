@@ -1,8 +1,8 @@
 package com.r_tech.ecommerce.exception;
 
-public class OrderException extends Exception {
+public class OrderNotFoundException extends Exception {
 
-	public OrderException(String message) {
+	public OrderNotFoundException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}

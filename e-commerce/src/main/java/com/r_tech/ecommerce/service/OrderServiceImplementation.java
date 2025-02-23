@@ -3,7 +3,7 @@ package com.r_tech.ecommerce.service;
 import com.r_tech.ecommerce.repository.*;
 import com.r_tech.ecommerce.domain.OrderStatus;
 import com.r_tech.ecommerce.domain.PaymentStatus;
-import com.r_tech.ecommerce.exception.OrderException;
+import com.r_tech.ecommerce.exception.OrderNotFoundException;
 import com.r_tech.ecommerce.model.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,7 +87,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public Order placedOrder(Long orderId) throws OrderException {
+    public Order placedOrder(Long orderId) throws OrderNotFoundException {
         Order order=findOrderById(orderId);
         order.setOrderStatus(OrderStatus.PLACED);
         order.getPaymentDetails().setStatus(PaymentStatus.COMPLETED);
@@ -95,7 +95,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public Order confirmedOrder(Long orderId) throws OrderException {
+    public Order confirmedOrder(Long orderId) throws OrderNotFoundException {
         Order order=findOrderById(orderId);
         order.setOrderStatus(OrderStatus.CONFIRMED);
 
@@ -104,34 +104,34 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public Order shippedOrder(Long orderId) throws OrderException {
+    public Order shippedOrder(Long orderId) throws OrderNotFoundException {
         Order order=findOrderById(orderId);
         order.setOrderStatus(OrderStatus.SHIPPED);
         return orderRepository.save(order);
     }
 
     @Override
-    public Order deliveredOrder(Long orderId) throws OrderException {
+    public Order deliveredOrder(Long orderId) throws OrderNotFoundException {
         Order order=findOrderById(orderId);
         order.setOrderStatus(OrderStatus.DELIVERED);
         return orderRepository.save(order);
     }
 
     @Override
-    public Order cancledOrder(Long orderId) throws OrderException {
+    public Order cancledOrder(Long orderId) throws OrderNotFoundException {
         Order order=findOrderById(orderId);
         order.setOrderStatus(OrderStatus.CANCELLED);
         return orderRepository.save(order);
     }
 
     @Override
-    public Order findOrderById(Long orderId) throws OrderException {
+    public Order findOrderById(Long orderId) throws OrderNotFoundException {
         Optional<Order> opt=orderRepository.findById(orderId);
 
         if(opt.isPresent()) {
             return opt.get();
         }
-        throw new OrderException("order not exist with id "+orderId);
+        throw new OrderNotFoundException("order not exist with id "+orderId);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class OrderServiceImplementation implements OrderService {
     }
 
     @Override
-    public void deleteOrder(Long orderId) throws OrderException {
+    public void deleteOrder(Long orderId) throws OrderNotFoundException {
         Order order =findOrderById(orderId);
 
         orderRepository.deleteById(orderId);
