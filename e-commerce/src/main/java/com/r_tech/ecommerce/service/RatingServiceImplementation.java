@@ -15,10 +15,13 @@ import com.r_tech.ecommerce.request.RatingRequest;
 @Service
 public class RatingServiceImplementation implements RatingService{
 	
-	@Autowired
 	private RatingRepository ratingRepository;
-	@Autowired
 	private ProductService productService;
+
+	public RatingServiceImplementation(ProductService productService, RatingRepository ratingRepository) {
+		this.productService = productService;
+		this.ratingRepository = ratingRepository;
+	}
 
 	@Override
 	public Rating createRating(RatingRequest req, User user) throws ProductException {

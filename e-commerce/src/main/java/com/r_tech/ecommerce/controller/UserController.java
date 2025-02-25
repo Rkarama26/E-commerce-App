@@ -23,8 +23,11 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/api/users")
 @Tag(name = "User API's")
 public class UserController {
-	
-	@Autowired
+
+	public UserController(UserService userService) {
+		this.userService = userService;
+	}
+
 	private UserService userService;
 	
 	

@@ -16,8 +16,8 @@ import com.r_tech.ecommerce.model.User;
 @Service // using this class to override default password and user
 public class CustomUserServiceImplemetation implements UserDetailsService {
 
-	@Autowired
-	private  UserRepository userRepository;
+	public  UserRepository userRepository;
+
 
 	public CustomUserServiceImplemetation(UserRepository userRepository) {
 		this.userRepository = userRepository;
