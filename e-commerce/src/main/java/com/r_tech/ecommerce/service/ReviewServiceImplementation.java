@@ -16,10 +16,13 @@ import com.r_tech.ecommerce.request.ReviewRequest;
 @Service
 public class ReviewServiceImplementation implements ReviewService {
 	
-	@Autowired
 	private ReviewRepository reviewRepository;
-	@Autowired
 	private ProductService productService;
+
+	public ReviewServiceImplementation(ProductService productService, ReviewRepository reviewRepository) {
+		this.productService = productService;
+		this.reviewRepository = reviewRepository;
+	}
 
 	@Override
 	public Review createReview(ReviewRequest req, User user) throws ProductException {

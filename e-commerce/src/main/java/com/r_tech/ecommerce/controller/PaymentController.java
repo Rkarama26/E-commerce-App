@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.*;
 public class PaymentController {
 
 
-    @Autowired
     private PaymentService paymentService;
+
+    public PaymentController(PaymentService paymentService) {
+        this.paymentService = paymentService;
+    }
 
     @PostMapping("/payments/{orderId}")
     public ResponseEntity<PaymentLinkResponse> createPaymentLink(@PathVariable Long orderId,

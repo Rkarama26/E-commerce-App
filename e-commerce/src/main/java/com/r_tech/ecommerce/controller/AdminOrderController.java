@@ -19,7 +19,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Admin Order API's")
 public class AdminOrderController {
 
-	@Autowired
+	public AdminOrderController(OrderService orderService) {
+		this.orderService = orderService;
+	}
+
 	private OrderService orderService;
 
 	@GetMapping("/list")

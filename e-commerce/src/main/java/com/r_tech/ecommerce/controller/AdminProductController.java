@@ -27,7 +27,10 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Admin Product API's")
 public class AdminProductController {
 
-	@Autowired
+	public AdminProductController(ProductService productService) {
+		this.productService = productService;
+	}
+
 	private ProductService productService;
 
 	@PostMapping("/create")

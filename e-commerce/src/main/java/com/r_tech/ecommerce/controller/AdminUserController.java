@@ -20,8 +20,11 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/admin")
 @Tag(name = "Admin API's")
 public class AdminUserController {
-	
-	@Autowired
+
+	public AdminUserController(UserService userService) {
+		this.userService = userService;
+	}
+
 	private UserService userService;
 
 	@GetMapping("/users")

@@ -29,12 +29,18 @@ public class CartController {
     private static final Logger logger = LoggerFactory.getLogger(CartController.class);
 
 
-    @Autowired
+
     private CartService cartService;
-    @Autowired
+
     private UserService userService;
-    @Autowired
+
     private CartItemService cartItemService;
+
+    public CartController(CartItemService cartItemService, CartService cartService, UserService userService) {
+        this.cartItemService = cartItemService;
+        this.cartService = cartService;
+        this.userService = userService;
+    }
 
     @GetMapping("/")
     @Operation(description = "find cart by user id")

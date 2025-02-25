@@ -27,11 +27,14 @@ public class PaymentServiceImpl implements PaymentService {
     @Value("${razorpay.api.secret}")
     String apiSecret;
 
-    @Autowired
     private OrderService orderService;
 
-    @Autowired
     private OrderRepository orderRepository;
+
+    public PaymentServiceImpl(OrderService orderService, OrderRepository orderRepository) {
+        this.orderService = orderService;
+        this.orderRepository = orderRepository;
+    }
 
     public PaymentLinkResponse createPaymentLink(Long orderId) throws OrderNotFoundException, RazorpayException {
         Order order = orderService.findOrderById(orderId);

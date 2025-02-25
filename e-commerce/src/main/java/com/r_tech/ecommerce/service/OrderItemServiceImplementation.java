@@ -8,8 +8,11 @@ import com.r_tech.ecommerce.model.OrderItem;
 @Service
 public class OrderItemServiceImplementation implements OrderItemService {
 
-	@Autowired
 	private OrderItemRepository orderItemRepository;
+
+	public OrderItemServiceImplementation(OrderItemRepository orderItemRepository) {
+		this.orderItemRepository = orderItemRepository;
+	}
 
 	@Override
 	public OrderItem createOrderItem(OrderItem orderItem) {

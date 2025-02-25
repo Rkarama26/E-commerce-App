@@ -14,13 +14,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class CartServiceImplemetation implements CartService {
 
-    @Autowired
+
     private CartRepository cartRepository;
-    @Autowired
     private CartItemService cartItemService;
-    @Autowired
     private ProductService productService;
 
+    public CartServiceImplemetation(CartItemService cartItemService, CartRepository cartRepository, ProductService productService) {
+        this.cartItemService = cartItemService;
+        this.cartRepository = cartRepository;
+        this.productService = productService;
+    }
 
     @Override
     public Cart createCart(User user) {

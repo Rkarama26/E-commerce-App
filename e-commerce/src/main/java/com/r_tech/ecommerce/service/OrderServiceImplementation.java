@@ -18,23 +18,25 @@ import java.util.Optional;
 @Slf4j
 public class OrderServiceImplementation implements OrderService {
 
-    @Autowired
     private CartRepository cartRepository;
-    @Autowired
     private CartItemService cartitemService;
-    @Autowired
     private ProductService productService;
-    @Autowired
     private OrderRepository orderRepository;
-    @Autowired
     private UserRepository userRepository;
-    @Autowired
     private AddressRepository addressRepository;
-    @Autowired
     private CartService cartService;
-    @Autowired
     private OrderItemRepository orderItemRepository;
 
+    public OrderServiceImplementation(AddressRepository addressRepository, CartItemService cartitemService, CartRepository cartRepository, CartService cartService, OrderItemRepository orderItemRepository, OrderRepository orderRepository, ProductService productService, UserRepository userRepository) {
+        this.addressRepository = addressRepository;
+        this.cartitemService = cartitemService;
+        this.cartRepository = cartRepository;
+        this.cartService = cartService;
+        this.orderItemRepository = orderItemRepository;
+        this.orderRepository = orderRepository;
+        this.productService = productService;
+        this.userRepository = userRepository;
+    }
 
     @Override
     public Order createOrder(User user, Address shippingAddress) {

@@ -26,18 +26,20 @@ import com.r_tech.ecommerce.request.CreateProductRequest;
 @Slf4j
 public class ProductServiceImplementation implements ProductService {
 
-	@Autowired
+
 	private ProductRepository productRepository;
 	
-	@Autowired
 	private UserService userService;
 	
-	@Autowired
 	private CategoryRepository categoryRepository;
-	
-	
 
-	//API - Create Product 
+	public ProductServiceImplementation(CategoryRepository categoryRepository, ProductRepository productRepository, UserService userService) {
+		this.categoryRepository = categoryRepository;
+		this.productRepository = productRepository;
+		this.userService = userService;
+	}
+
+	//API - Create Product
 	@Override
 	public Product createProduct(CreateProductRequest req) {
 

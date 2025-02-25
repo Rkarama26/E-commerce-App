@@ -26,16 +26,17 @@ import com.r_tech.ecommerce.service.CustomUserServiceImplemetation;
 @RequestMapping("/auth")
 public class AuthController {
 
-	@Autowired
 	private UserRepository userRepository;
-	@Autowired
 	private JwtProvider jwtProvider;
-	@Autowired
 	private PasswordEncoder passwordEncoder;
-	@Autowired
 	private CustomUserServiceImplemetation customUserService;
-	
-	
+
+	public AuthController(CustomUserServiceImplemetation customUserService, JwtProvider jwtProvider, PasswordEncoder passwordEncoder, UserRepository userRepository) {
+		this.customUserService = customUserService;
+		this.jwtProvider = jwtProvider;
+		this.passwordEncoder = passwordEncoder;
+		this.userRepository = userRepository;
+	}
 
 	@PostMapping("/signup")
 	public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws UserException {

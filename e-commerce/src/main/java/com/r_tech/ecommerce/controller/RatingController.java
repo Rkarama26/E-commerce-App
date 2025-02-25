@@ -28,12 +28,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @Tag(name = "Rating API's")
 public class RatingController {
 
-	@Autowired
 	private UserService userService;
-	@Autowired
 	private RatingService ratingService;
-	
-	
+
+	public RatingController(RatingService ratingService, UserService userService) {
+		this.ratingService = ratingService;
+		this.userService = userService;
+	}
+
 	@PostMapping("/create")
 	public ResponseEntity<Rating> createRating(@RequestBody RatingRequest req, 
 			  @RequestHeader("Authorization")String jwt) throws UserException , ProductException{

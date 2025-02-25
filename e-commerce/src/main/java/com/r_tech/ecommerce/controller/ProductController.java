@@ -19,12 +19,15 @@ import com.r_tech.ecommerce.service.ProductService;
 @RequestMapping("/api")
 public class ProductController {
 	
-	@Autowired
 	private ProductService productService;
 
-	@Autowired
 	private CategoryRepository categoryRepository;
-	
+
+	public ProductController(CategoryRepository categoryRepository, ProductService productService) {
+		this.categoryRepository = categoryRepository;
+		this.productService = productService;
+	}
+
 	@GetMapping("/products")
 	public ResponseEntity<Page<Product>>findProductByCategoryHandler(@RequestHeader("Authorization") String jwt,  @RequestParam String category,
 																	 @RequestParam Integer minPrice, @RequestParam Integer maxPrice,
