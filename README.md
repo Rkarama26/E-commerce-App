@@ -13,7 +13,7 @@
 ---
 
 ## Project Overview
-The **Spring E-commerce Project** is a full-stack application that provides a robust platform for buying and selling products online. It allows users to browse products, manage carts, place orders, and perform authentication securely. The backend is built using **Spring Boot** with features like JWT-based authentication and database management through **Spring Data JPA**.
+The **E-commerce Project** is a full-stack application that provides a robust platform for buying products online. It allows users to browse products, manage carts, place orders, and perform authentication securely. The backend is built using **Spring Boot** with features like JWT-based authentication.
 
 ---
 
