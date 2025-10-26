@@ -1,7 +1,8 @@
+
 #build stage
 FROM maven:3.8.4-openjdk-17 AS build
 #working directory
-WORKDIR /build
+WORKDIR /app
 #copy depencdency
 COPY pom.xml .
 RUN mvn dependency:go-offline
@@ -13,14 +14,12 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17-jdk-slim
 
  #Define few things
-ARG PROFILE=dev
+#ARG PROFILE=dev
 
 WORKDIR /app
-COPY --from=build /build/target/e-commerce-1.0.0.jar /app/
+COPY --from=build /app/target/e-commerce-1.0.0.jar app.jar
+
 
 EXPOSE 8080
 
-ENV DB_URL=jdbc:mysql://mysql:3306/ecommerce
-ENV ACTIVE_PROFILE=${PROFILE}
-
-CMD java -jar -Dspring.profiles.active=${ACTIVE_PROFILE} -Dspring.datasource.url=${DB_URL} /app/e-commerce-1.0.0.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
